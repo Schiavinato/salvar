@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Consulta</title>
+</head>
+<body>
+  <h1>Agende sua consulta</h1>
+  <form method="POST" action="/consultas">
+    <input type="text" name="nome_paciente" placeholder="Digite o nome do paciente">
+    <input type="date" name="data_consulta" placeholder="Selecione o dia">
+    <input type="time" name="hora_consulta" placeholder="Selecione o horário">
+    <select id="sexo" name="sexo">
+        <option value="masculino">Masculino</option>
+        <option value="feminino">Feminino</option>
+        <option value="outro">Outro</option>
+    </select>
+    <button type="submit">Agendar</button>
+  </form>
+</body>
+</html>
