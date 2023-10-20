@@ -9,7 +9,7 @@ app.set('view engine', 'ejs');
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'phpmyadmin',
-  password: 'aluno',
+  password: 'jesus',
   database: 'CCWAmedicine',
 });
 
@@ -79,6 +79,9 @@ app.post('/login', (req, res) => {
     }
   });
 });
+
+app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + '/Images'));
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
