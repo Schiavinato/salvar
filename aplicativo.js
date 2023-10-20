@@ -22,21 +22,21 @@ db.connect((err) => {
 });
 
 app.get('/cadastro', (req, res) => {
-  res.render('cadastro');
+  res.render('cadastro'); // Certifique-se de que você tenha um arquivo de modelo 'cadastro.ejs' definido
 });
 
 app.post('/cadastro', (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, cpf, telefone, email, sexo, CEP } = req.body;
 
-  // Primeira consulta: Inserir na tabela de cadastro
-  const cadastroQuery = 'INSERT INTO cadastro (username, password) VALUES (?, ?)';
-  db.query(cadastroQuery, [username, password], (err, result) => {
+  // Consulta para inserir na tabela de cadastro
+  const cadastroQuery = 'INSERT INTO cadastro (username, password, cpf, telefone, email, sexo, CEP) VALUES (?, ?, ?, ?, ?, ?, ?)';
+  db.query(cadastroQuery, [username, password, cpf, telefone, email, sexo, CEP], (err, result) => {
     if (err) {
       res.status(500).send('Erro no servidor ao cadastrar');
     } else {
       const user_id = result.insertId; // Obtém o ID do usuário inserido
 
-      // Segunda consulta: Inserir na tabela de login relacionando com o ID do usuário
+      // Consulta para inserir na tabela de login relacionada ao ID do usuário
       const loginQuery = 'INSERT INTO login (user_id, last_login) VALUES (?, NOW())';
       db.query(loginQuery, [user_id], (err, result) => {
         if (err) {
@@ -50,7 +50,7 @@ app.post('/cadastro', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login');
+  res.render('login'); // Certifique-se de que você tenha um arquivo de modelo 'login.ejs' definido
 });
 
 app.post('/login', (req, res) => {
@@ -64,7 +64,7 @@ app.post('/login', (req, res) => {
     } else if (result.length > 0) {
       const user_id = result[0].user_id;
 
-      // Consulta para obter as informações de login com base no ID do usuário
+      // Consulta para obter informações de login com base no ID do usuário
       const userInfoQuery = 'SELECT * FROM login WHERE user_id = ?';
       db.query(userInfoQuery, [user_id], (err, result) => {
         if (err) {
