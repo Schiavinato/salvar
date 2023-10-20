@@ -1,34 +1,347 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Cadastro</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
-</head>
-<body>
-  <h1>Cadastro</h1>
-  <form method="POST" action="/cadastro">
-    <input type="text" name="username" placeholder="Nome de usuário">
-    <input type="password" name="password" placeholder="Senha">
-   
-    <input type="text" id="cpf" name="cpf" placeholder="Digite o CPF" />
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-widht, initial-scale=1.0">
+        <title>CCWA Medicine</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+    </head>
 
-    <script>
-        // Adicione a máscara ao campo de CPF usando Inputmask
-        $(document).ready(function() {
-            $('#cpf').inputmask("999.999.999-99");
-        });
-    </script>
+    <style>
+        /*Configurções padrão*/
 
-    <input type="text" name="telefone" placeholder="Telefone">
-    <input type="text" name="email" placeholder="email">
-    <select id="sexo" name="sexo">
-        <option value="masculino">Masculino</option>
-        <option value="feminino">Feminino</option>
-        <option value="outro">Outro</option>
-    </select>
-    <input type="text" name="CEP" placeholder="Digite o CEP (ex: 12345-678)" />
-    <button type="submit">Cadastrar</button>
-  </form>
-</body>
+        @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300&display=swap');
+
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: Alegreya Sans;
+        }
+
+        header {
+            margin: 0 auto;
+        }
+
+        body {
+            background: #8fffbc;
+            background: linear-gradient(180deg, #8fffbc 0%, #ffffff 75%);
+
+        }
+
+        main {
+            margin: 0 auto;
+            width: 1200px;
+            position: relative;
+        }
+
+        .casa {
+            padding: 10px;
+        }
+
+        .homenzinho {
+            font-weight: bold;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .logo {
+            text-align: center;
+        }
+
+        .texto {
+            padding-top: 60px;
+            font-size: 40px;
+        }
+
+        .tudoo {
+            margin-left: 130px;
+            margin-top: 50px;
+            width: 1200px;
+
+        }
+
+        #nome {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+
+        #senha {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+        #rg {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+
+        #senha2 {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+        #cpf {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+
+        #cep {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+        #tell {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+
+        #cidade {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+        #email {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+
+        #sexo {
+            width: 450px;
+            height: 45px;
+            border-radius: 15px;
+            border: none;
+            padding: 0px 20px;
+            font-size: 20px;
+            background-color: #D9D9D9;
+        }
+
+        .botprosseguir {
+            width: 250px;
+            height: 50px;
+            margin-top: 30px;
+            margin-left: 352px;
+            border: none;
+            border-radius: 30px;
+            background-color: #78FFAE;
+            font-size: 20px;
+            font-weight: bold;
+
+        }
+
+        .btns-1 {
+            display: flex;
+        }
+
+        .btns-2 {
+            display: flex;
+        }
+
+        .btns-3 {
+            display: flex;
+        }
+
+        .btns-4 {
+            display: flex;
+        }
+
+        .btns-5 {
+            display: flex;
+        }
+
+        .btns-6 {
+            display: flex;
+        }
+
+        .espaco {
+            position: absolute;
+            margin-left: 500px;
+            margin-top: -23px;
+        }
+
+
+
+        .legais {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .cadeistro {
+            display: flex;
+            margin-left: 509px;
+            margin-top: 5px;
+            text-decoration: none;
+        }
+
+        h2 {
+            font-size: 21px;
+            color: #000000;
+        }
+
+        h3 {
+            font-size: 21px;
+            margin-left: 10px;
+            color: #000000;
+        }
+
+        h3:hover {
+            color: #1e5aff;
+        }
+    </style>
+
+    <body>
+        <header class="cabecalho">
+            <div class="casa">
+                <ul>
+                    <a href="">
+                        <img src="Casinha.png" />
+                    </a>
+                </ul>
+            </div><br>
+        </header>
+    
+        <main>
+            <div class="logo">
+                <img src="Logo.png">
+            </div><br><br><br>
+    
+            <div class="homenzinho">
+                <img src="Pesssoa.png">Cadastro do Cliente
+            </div>
+        
+            <div class="tudoo">
+                <form method="POST" action="/cadastro">
+                    <label class="legais">Nome:</label>
+                    <div class="btns-1">
+                        <input type="text" name="username" placeholder="Neide Costas" id="nome">
+                        <div class="espaco">
+                            <label class="legais">Senha:</label><br>
+                            <input type="password" name="password" placeholder="******" id="senha">
+                        </div>
+                    </div><br>
+
+                    <label class="legais">RG:</label>
+                    <div class="btns-2">
+                        <input placeholder="99.999.999-9" type="text" id="rg">
+                        <script>
+                            // Adicione a máscara ao campo de RG usando Inputmask
+                            $(document).ready(function () {
+                                $('#rg').inputmask("99.999.999-9");
+                            });
+                        </script>
+                        <div class="espaco">
+                            <label class="legais">Confirme sua senha:</label><br>
+                            <input placeholder="******" type="password" id="senha2">
+                        </div>
+                    </div><br>
+
+                    <label class="legais">CPF:</label>
+                    <div class="btns-3">
+                        <input type="text" id="cpf" name="cpf" placeholder="999.999.999-99" />
+                        <script>
+                            // Adicione a máscara ao campo de CPF usando Inputmask
+                            $(document).ready(function () {
+                                $('#cpf').inputmask("999.999.999-99");
+                            });
+                        </script>
+                        <div class="espaco">
+                            <label class="legais">CEP:</label><br>
+                            <input type="text" name="CEP" placeholder="199999-99" id="cep" />
+                        </div>
+                    </div><br>
+
+                    <label class="legais">Telefone:</label>
+                    <div class="btns-4">
+                        <input type="text" id="tell" name="telefone" placeholder="(19) 99999-9999">
+                        <script>
+                            // Adicione a máscara ao campo de Telefone usando Inputmask
+                            $(document).ready(function () {
+                                $('#tell').inputmask("(99) 99999-9999");
+                            });
+                        </script>
+                        <div class="espaco">
+                            <label class="legais">Cidade:</label><br>
+                            <input type="text" name="cidade" placeholder="Galiléia" id="cidade" />
+                        </div>
+                    </div><br>
+
+                    <label class="legais">Email:</label>
+                    <div class="btns-5">
+                        <input type="text" name="email" placeholder="example@outlook.com" id="email">
+                        <div class="espaco">
+                            <label class="legais">Sexo:</label><br>
+                            <select id="sexo" name="sexo">
+                                <option value="">Selecionar...</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div><br>
+                    <button type="submit" class="botprosseguir">Cadastrar</button>
+                </form>
+            </div>
+
+            <div class="botoes">
+                <div class="cadeistro">
+                    <h2>Já tem uma conta?</h2>
+                    <a href="http://localhost:3000/login" style="text-decoration: none;">
+                        <h3>Entre</h3>
+                    </a>
+                </div><br><br><br><br>
+            </div>
+        </main>
+    </body>
 </html>
