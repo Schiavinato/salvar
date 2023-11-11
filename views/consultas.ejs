@@ -1,20 +1,232 @@
-<!DOCTYPE html>
-<html>
+<html lang="pt-br">
+
 <head>
-  <title>Consulta</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-widht, initial-scale=1.0">
+    <link href="Cadastro.css" rel="stylesheet" type="text/css">
+    <title>CCWA Medicine</title>
 </head>
+
 <body>
-  <h1>Agende sua consulta</h1>
-  <form method="POST" action="/consultas">
-    <input type="text" name="nome_paciente" placeholder="Digite o nome do paciente">
-    <input type="date" name="data_consulta" placeholder="Selecione o dia">
-    <input type="time" name="hora_consulta" placeholder="Selecione o horário">
-    <select id="sexo" name="sexo">
-        <option value="masculino">Masculino</option>
-        <option value="feminino">Feminino</option>
-        <option value="outro">Outro</option>
-    </select>
+    <header class="cabecalho">
+        <div class="casa">
+            <ul>
+                <a href="../InÃ­cio/InÃ­cio.html">
+                    <img src="/Images/Casinha.png" />
+                </a>
+            </ul>
+        </div><br><br>
+    </header>
+
+    <main>
+        <div class="logo">
+            <img src="/Images/Logo.png">
+        </div><br><br><br>
+
+        <div class="homenzinho">
+            <img src="/Images/Pesssoa.png">Agende sua Consulta
+        </div><br><br><br>
+
+        <form method="POST" action="/consultas">
+        <div class="tudoo">
+            <label class="legais">Nome:</label>
+            <div class="btns-1">
+                <input placeholder="Jair Messias Bolsonaro" type="text" id="nome_paciente">
+                <div class="espaco">
+                    <label class="legais">Dia:</label><br>
+                    <input placeholder="Dia/MÃŠs/Ano" type="date" id="data_consulta">
+                </div>
+            </div><br>
+
+            <label class="legais">Hora:</label>
+            <div class="btns-2">
+                <input placeholder="hora:minuto" type="time" id="hora_consulta">
+                <div class="espaco">
+                    <label class="legais">Sexo:</label><br>
+                    <select name="linguagem" required="required" id="sexo">
+                        <option value="">Selecionar...</option>
+                        <option>Feminino</option>
+                        <option>Masculino</option>
+                        <option>Outro</option>
+                    </select>
+                </div>
+            </div><br>
+            <div class="botoes">
     <button type="submit">Agendar</button>
   </form>
+                </div><br><br><br><br>
+            </div>
+    </main>
+
+    <script src="Cadastro.js"></script>
 </body>
+<style>
+  /*ConfigurÃ§Ãĩes padrÃĢo*/
+
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:wght@300&display=swap');
+
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	font-family: Alegreya Sans;
+}
+
+header{
+	margin: 0 auto;
+}
+
+body{
+  background: #8fffbc;
+	background: linear-gradient(180deg, #8fffbc 0%, #ffffff 75%);
+
+}
+main{
+	margin: 0 auto;
+	width: 1200px;
+	position: relative;
+}
+
+.casa{
+  padding: 10px;
+}
+
+.homenzinho {
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+}
+
+.logo {
+  text-align: center;
+}
+
+.texto {
+  padding-top: 60px;
+  font-size: 40px;
+}
+
+.tudoo{
+  margin-left: 130px;
+	margin-top: 75px;
+	width: 1200px;
+
+}
+
+#nome_paciente {
+  width: 450px;
+  height: 45px;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 20px;
+  font-size: 20px;
+  background-color: #D9D9D9;
+}
+
+
+#data_consulta {
+  width: 450px;
+  height: 45px;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 20px;
+  font-size: 20px;
+  background-color: #D9D9D9;
+}
+
+#hora_consulta {
+  width: 450px;
+  height: 45px;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 20px;
+  font-size: 20px;
+  background-color: #D9D9D9;
+}
+
+
+#sexo {
+  width: 450px;
+  height: 45px;
+  border-radius: 15px;
+  border: none;
+  padding: 0px 20px;
+  font-size: 20px;
+  background-color: #D9D9D9;
+}
+
+button {
+  width: 250px;
+  height: 50px;
+  margin-top: 30px;
+  margin-left: 350px;
+  border: none;
+  border-radius: 30px;
+  background-color: #78FFAE;
+  font-size: 20px;
+  font-weight: bold;
+
+}
+
+.btns-1{
+  display: flex;
+}
+
+.btns-2{
+  display: flex;
+}
+.btns-3{
+  display: flex;
+}
+
+.btns-4{
+  display: flex;
+}
+
+.btns-5{
+  display: flex;
+}
+
+.btns-6{
+  display: flex;
+}
+
+.espaco{
+  position: absolute;
+  margin-left: 500px;
+  margin-top: -23px;
+}
+
+
+
+.legais{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.cadeistro{
+  display: flex;
+  margin-left: 509px;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+h2{
+  font-size: 21px;
+  color: #000000;
+}
+
+h3{
+  font-size: 21px;
+  margin-left: 10px;
+  color: #000000;
+}
+
+h3:hover{
+  color: #1e5aff;
+}
+
+  </style>
+
 </html>

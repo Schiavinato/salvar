@@ -9,7 +9,7 @@ app.set('view engine', 'ejs');
 const db = mysql.createConnection({
   host: 'localhost',
   user: 'phpmyadmin',
-  password: 'jesus',
+  password: 'aluno',
   database: 'CCWAmedicine',
 });
 

@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql2');
-const port = 3000;
+const port = 4000;
 
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
@@ -38,6 +38,9 @@ app.post('/consultas', (req, res) => {
     }
   });
 });
+
+app.use(express.static(__dirname + '/assets'));
+app.use(express.static(__dirname + '/Images'));
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);
