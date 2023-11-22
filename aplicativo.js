@@ -21,8 +21,6 @@ db.connect((err) => {
   }
 });
 
-// Certifique-se de que existem os arquivos de modelo 'cadastro.ejs' e 'login.ejs'
-
 app.get('/cadastro', (req, res) => {
   res.render('cadastro'); 
 });
@@ -55,6 +53,18 @@ app.get('/login', (req, res) => {
   res.render('login');
 });
 
+app.get('/adminPage', (req, res) => {
+  res.render('adminPage');
+});
+
+app.get('/userPage', (req, res) => {
+  res.render('userPage');
+});
+
+app.get('/medicoPage', (req, res) => {
+  res.render('medicoPage');
+});
+
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -75,6 +85,8 @@ app.post('/login', (req, res) => {
             res.redirect('/adminPage');
           } else if (user_type === 'user') {
             res.redirect('/userPage');
+          } else if (user_type === 'medico') {
+            res.redirect('/medicoPage');
           } else {
             res.send('Tipo de usuário desconhecido');
           }
