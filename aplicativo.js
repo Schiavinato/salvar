@@ -21,22 +21,24 @@ db.connect((err) => {
   }
 });
 
+// Certifique-se de que existem os arquivos de modelo 'cadastro.ejs' e 'login.ejs'
+
 app.get('/cadastro', (req, res) => {
-  res.render('cadastro'); // Certifique-se de que você tenha um arquivo de modelo 'cadastro.ejs' definido
+  res.render('cadastro'); 
 });
 
 app.post('/cadastro', (req, res) => {
   const { username, password, cpf, telefone, email, sexo, CEP } = req.body;
+  const userType = 'user';
 
-  // Consulta para inserir na tabela de cadastro
-  const cadastroQuery = 'INSERT INTO cadastro (username, password, cpf, telefone, email, sexo, CEP) VALUES (?, ?, ?, ?, ?, ?, ?)';
-  db.query(cadastroQuery, [username, password, cpf, telefone, email, sexo, CEP], (err, result) => {
+  const cadastroQuery = 'INSERT INTO cadastro (username, password, cpf, telefone, email, sexo, CEP, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  
+  db.query(cadastroQuery, [username, password, cpf, telefone, email, sexo, CEP, userType], (err, result) => {
     if (err) {
       res.status(500).send('Erro no servidor ao cadastrar');
     } else {
-      const user_id = result.insertId; // Obtém o ID do usuário inserido
+      const user_id = result.insertId;
 
-      // Consulta para inserir na tabela de login relacionada ao ID do usuário
       const loginQuery = 'INSERT INTO login (user_id, last_login) VALUES (?, NOW())';
       db.query(loginQuery, [user_id], (err, result) => {
         if (err) {
@@ -50,32 +52,36 @@ app.post('/cadastro', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-  res.render('login'); // Certifique-se de que você tenha um arquivo de modelo 'login.ejs' definido
+  res.render('login');
 });
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
-  // Consulta para buscar o ID do usuário com base no nome de usuário e senha
-  const loginQuery = 'SELECT user_id FROM cadastro WHERE username = ? AND password = ?';
+  const loginQuery = 'SELECT user_id, user_type FROM cadastro WHERE username = ? AND password = ?';
   db.query(loginQuery, [username, password], (err, result) => {
     if (err) {
       res.status(500).send('Erro no servidor ao fazer login');
     } else if (result.length > 0) {
       const user_id = result[0].user_id;
+      const user_type = result[0].user_type;
 
-      // Consulta para obter informações de login com base no ID do usuário
       const userInfoQuery = 'SELECT * FROM login WHERE user_id = ?';
       db.query(userInfoQuery, [user_id], (err, result) => {
         if (err) {
           res.status(500).send('Erro no servidor ao buscar informações de login');
         } else {
-          // Você pode acessar os dados de login como result[0].last_login
-          res.send('Login bem-sucedido');
+          if (user_type === 'admin') {
+            res.redirect('/adminPage');
+          } else if (user_type === 'user') {
+            res.redirect('/userPage');
+          } else {
+            res.send('Tipo de usuário desconhecido');
+          }
         }
       });
     } else {
-      res.send('Nome de usuário ou senha incorretos');
+      res.send('Nome de usuário ou senha incorretos ou usuário não cadastrado');
     }
   });
 });
