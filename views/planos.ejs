@@ -1,0 +1,21 @@
+<!-- views/planos.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Planos</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <h1>Planos Disponíveis</h1>
+  <ul>
+    <% for (let i = 0; i < planos.length; i++) { %>
+      <li>
+        <%= planos[i].nome %> - R$ <%= planos[i].preco %>
+      </li>
+    <% } %>
+  </ul>
+</body>
+</html>
