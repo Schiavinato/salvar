@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql2');
-const port = 3000;
+const port = 3000; // ou o número de porta que você deseja usar
 
 app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
@@ -21,6 +21,25 @@ db.connect((err) => {
   }
 });
 
+// Rotas para a seção de consultas
+app.get('/consultas', (req, res) => {
+  res.render('consultas'); // Certifique-se de que você tenha um arquivo de modelo 'consultas.ejs' definido
+});
+
+app.post('/consultas', (req, res) => {
+  const { nome_paciente, data_consulta, hora_consulta, observacoes, criado_em } = req.body;
+
+  const cadastroQuery = 'INSERT INTO consultas (nome_paciente, data_consulta, hora_consulta, observacoes, criado_em) VALUES (?, ?, ?, ?, ?)';
+  db.query(cadastroQuery, [nome_paciente, data_consulta, hora_consulta, observacoes, criado_em], (err, result) => {
+    if (err) {
+      res.status(500).send('Erro no servidor ao cadastrar');
+    } else {
+      res.send('Consulta cadastrada com sucesso');
+    }
+  });
+});
+
+// Rotas para a seção de cadastro, login e páginas do usuário
 app.get('/cadastro', (req, res) => {
   res.render('cadastro'); 
 });
