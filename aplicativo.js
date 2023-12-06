@@ -152,6 +152,18 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.listen(4000, () => {
+  console.log('Servidor rodando na porta ');
+  });
+  
+  // READ
+  app.get('/medicoPage', (req, res) => {
+    db.query('SELECT * FROM consultas', (err, result) => {
+      if (err) throw err;
+      res.render('medicoPage', { consultas: result });
+    });
+  });
+
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/Images'));
 
