@@ -32,26 +32,33 @@
         <div class="tudoo">
             <label class="legais">Nome:</label>
             <div class="btns-1">
-                <input placeholder="Jair Messias Bolsonaro" type="text" id="nome_paciente">
+                <input name="nome_paciente" placeholder="Jair Messias Bolsonaro" type="text" id="nome_paciente">
                 <div class="espaco">
                     <label class="legais">Dia:</label><br>
-                    <input placeholder="Dia/MÃŠs/Ano" type="date" id="data_consulta">
+                    <input placeholder="Dia/MÃŠs/Ano" type="date" id="data_consulta" name="data_consulta">
                 </div>
             </div><br>
 
             <label class="legais">Hora:</label>
             <div class="btns-2">
-                <input placeholder="hora:minuto" type="time" id="hora_consulta">
+                <input placeholder="hora:minuto" type="time" id="hora_consulta" name="hora_consulta">
                 <div class="espaco">
                     <label class="legais">Sexo:</label><br>
-                    <select name="linguagem" required="required" id="sexo">
+                    <select name="sexo" required="required" id="sexo">
                         <option value="">Selecionar...</option>
                         <option>Feminino</option>
                         <option>Masculino</option>
                         <option>Outro</option>
                     </select>
+                    <label class="legais">Especialista:</label><br>
+                    <select name="especialista" required="required" id="especialista">
+                      <option value="">Selecionar...</option>
+                      <option>Cardiologista</option>
+                      <option>Ginecologista</option>
+                      <option>Oftalmologista</option>
+                    </select>
                 </div>
-            </div><br>
+              </div>
             <div class="botoes">
     <button type="submit">Agendar</button>
   </form>

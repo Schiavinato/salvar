@@ -53,7 +53,7 @@ app.post('/consultas', (req, res) => {
 
   const cadastroQuery = 'INSERT INTO consultas (nome_paciente, data_consulta, hora_consulta, especialista, criado_em) VALUES (?, ?, ?, ?, ?)';
   
-  db.query(cadastroQuery, [nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em], (err, result) => {
+  db.query(cadastroQuery, [nome_paciente, data_consulta, hora_consulta, especialista, criado_em], (err, result) => {
     if (err) {
       console.error('Erro ao cadastrar consulta: ' + err.stack);
       res.status(500).send('Erro no servidor ao cadastrar');
@@ -152,10 +152,6 @@ app.post('/login', (req, res) => {
   });
 });
 
-app.listen(4000, () => {
-  console.log('Servidor rodando na porta ');
-  });
-  
   // READ
   app.get('/medicoPage', (req, res) => {
     db.query('SELECT * FROM consultas', (err, result) => {
