@@ -21,28 +21,81 @@ db.connect((err) => {
   }
 });
 
+// Rota para redirecionar para a página 'index' quando acessado o localhost:3000
+app.get('/', (req, res) => {
+  res.render('index');
+});
+
+app.get('/medicoConsultas', (req, res) => {
+  const idDoMedico = 1;
+  const consultasDoMedicoQuery = 'SELECT * FROM consultas WHERE id_medico = ?';
+  
+  db.query(consultasDoMedicoQuery, [idDoMedico], (err, results) => {
+    if (err) {
+      res.status(500).send('Erro no servidor ao obter consultas do médico');
+    } else {
+      res.render('medicoConsultas', { consultas: results });
+    }
+  });
+});
+
+app.get('/consultas', (req, res) => {
+  res.render('consultas'); 
+});
+
+app.post('/consultas', (req, res) => {
+  const { nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em } = req.body;
+  
+  if (!nome_paciente) {
+    res.status(400).send('O campo nome_paciente não pode ser nulo ou vazio');
+    return;
+  }
+
+  const cadastroQuery = 'INSERT INTO consultas (nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em) VALUES (?, ?, ?, ?, ?, ?)';
+  
+  db.query(cadastroQuery, [nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em], (err, result) => {
+    if (err) {
+      console.error('Erro ao cadastrar consulta: ' + err.stack);
+      res.status(500).send('Erro no servidor ao cadastrar');
+    } else {
+      console.log('Consulta cadastrada com sucesso. ID: ' + result.insertId);
+      res.send('Consulta cadastrada com sucesso');
+    }
+  });
+});
+
 app.get('/cadastro', (req, res) => {
-  res.render('cadastro'); 
+  res.render('cadastro');
 });
 
 app.post('/cadastro', (req, res) => {
   const { username, password, cpf, telefone, email, sexo, CEP } = req.body;
   const userType = 'user';
 
-  const cadastroQuery = 'INSERT INTO cadastro (username, password, cpf, telefone, email, sexo, CEP, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+  const verificaUsuarioQuery = 'SELECT * FROM cadastro WHERE username = ? OR email = ?';
   
-  db.query(cadastroQuery, [username, password, cpf, telefone, email, sexo, CEP, userType], (err, result) => {
+  db.query(verificaUsuarioQuery, [username, email], (err, results) => {
     if (err) {
-      res.status(500).send('Erro no servidor ao cadastrar');
+      res.status(500).send('Erro no servidor ao verificar usuário');
+    } else if (results.length > 0) {
+      res.send('Usuário ou email já cadastrado');
     } else {
-      const user_id = result.insertId;
-
-      const loginQuery = 'INSERT INTO login (user_id, last_login) VALUES (?, NOW())';
-      db.query(loginQuery, [user_id], (err, result) => {
+      const cadastroQuery = 'INSERT INTO cadastro (username, password, cpf, telefone, email, sexo, CEP, user_type) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+      
+      db.query(cadastroQuery, [username, password, cpf, telefone, email, sexo, CEP, userType], (err, result) => {
         if (err) {
-          res.status(500).send('Erro no servidor ao criar login');
+          res.status(500).send('Erro no servidor ao cadastrar');
         } else {
-          res.send('Cadastro e login realizados com sucesso');
+          const user_id = result.insertId;
+          const loginQuery = 'INSERT INTO login (user_id, last_login) VALUES (?, NOW())';
+
+          db.query(loginQuery, [user_id], (err, result) => {
+            if (err) {
+              res.status(500).send('Erro no servidor ao criar login');
+            } else {
+              res.send('Cadastro e login realizados com sucesso');
+            }
+          });
         }
       });
     }
@@ -86,6 +139,7 @@ app.post('/login', (req, res) => {
           } else if (user_type === 'user') {
             res.redirect('/userPage');
           } else if (user_type === 'medico') {
+            // Redireciona o médico diretamente para a página de consultas dele
             res.redirect('/medicoPage');
           } else {
             res.send('Tipo de usuário desconhecido');
@@ -100,6 +154,7 @@ app.post('/login', (req, res) => {
 
 app.use(express.static(__dirname + '/assets'));
 app.use(express.static(__dirname + '/Images'));
+
 
 app.listen(port, () => {
   console.log(`Servidor rodando na porta ${port}`);

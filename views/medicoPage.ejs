@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consultas da Tabela</title>
+</head>
+<body>
+  <h1>Consultas da Tabela</h1>
+  <ul>
+    <% data.forEach(item => { %>
+      <li><%= item.nome_coluna %> - <%= item.outra_coluna %></li>
+      <!-- Substitua 'nome_coluna' e 'outra_coluna' pelos nomes reais das colunas da sua tabela -->
+    <% }); %>
+  </ul>
+</body>
+</html>
