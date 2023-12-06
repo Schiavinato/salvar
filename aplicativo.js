@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.get('/medicoConsultas', (req, res) => {
+app.get('/medicoPage', (req, res) => {
   const idDoMedico = 1;
   const consultasDoMedicoQuery = 'SELECT * FROM consultas WHERE id_medico = ?';
   
@@ -34,7 +34,7 @@ app.get('/medicoConsultas', (req, res) => {
     if (err) {
       res.status(500).send('Erro no servidor ao obter consultas do médico');
     } else {
-      res.render('medicoConsultas', { consultas: results });
+      res.render('medicoPage', { consultas: results });
     }
   });
 });
@@ -44,14 +44,14 @@ app.get('/consultas', (req, res) => {
 });
 
 app.post('/consultas', (req, res) => {
-  const { nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em } = req.body;
+  const { nome_paciente, data_consulta, hora_consulta, especialista, criado_em } = req.body;
   
   if (!nome_paciente) {
     res.status(400).send('O campo nome_paciente não pode ser nulo ou vazio');
     return;
   }
 
-  const cadastroQuery = 'INSERT INTO consultas (nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em) VALUES (?, ?, ?, ?, ?, ?)';
+  const cadastroQuery = 'INSERT INTO consultas (nome_paciente, data_consulta, hora_consulta, especialista, criado_em) VALUES (?, ?, ?, ?, ?)';
   
   db.query(cadastroQuery, [nome_paciente, data_consulta, hora_consulta, especialista, observacoes, criado_em], (err, result) => {
     if (err) {
@@ -160,6 +160,7 @@ app.listen(4000, () => {
   app.get('/medicoPage', (req, res) => {
     db.query('SELECT * FROM consultas', (err, result) => {
       if (err) throw err;
+      const consultas = Array.isArray(results) ? results  : [];
       res.render('medicoPage', { consultas: result });
     });
   });

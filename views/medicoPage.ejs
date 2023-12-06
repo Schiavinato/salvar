@@ -12,14 +12,14 @@
       </thead>
       <tbody>
         <ul>
-          <% consultas.forEach(consultas => { %>
-            <table>
-              <td><%= consultas.nome_paciente %></td>
-              <td><%= consultas.data_consulta %></td>
-              <td><%= consultas.hora_consulta %></td>
-              <td><%= consultas.Medicoespecialista %> </td>
-            </table>
-          <% }); %>
+            <% consultas.forEach(consultas => { %>
+                <table>
+                  <td><%= consultas.nome_paciente %></td>
+                  <td><%= consultas.data_consulta %></td>
+                  <td><%= consultas.hora_consulta %></td>
+                  <td><%= consultas.Medicoespecialista %> </td>
+                </table>
+              <% }); %>
         </ul>
       </tbody>
   </table>
